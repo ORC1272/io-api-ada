@@ -1,0 +1,9 @@
+JOÃO
+NOME COMPLETO: João
+IDADE: 27 ANOS
+SIGNO: PEIXES
+ASCENDENTE: LEAO
+SIGNO LUNAR: Signo Lunar Não Encontrado - Em Construção
+NASCEU EM ANO BISSEXTO: false
+=====================
+

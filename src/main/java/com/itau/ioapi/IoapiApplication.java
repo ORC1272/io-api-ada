@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -40,9 +42,14 @@ public class IoapiApplication implements CommandLineRunner {
         // Serializa o mapa quantico de cada pessoa
         pessoas.stream()
                 .parallel()
-                .map(signosService::getInformacoesSignosEmString)
-                .forEach(getConsumerForSerialize());
-    }
+                .map(p -> {
+                    System.out.println(Thread.currentThread().getName());
+                    return CompletableFuture.supplyAsync(() ->
+                            signosService.getInformacoesSignosEmString(p));
+                })
+                .collect(Collectors.toList());
+        }
+
 
     private Consumer<List<String>> getConsumerForSerialize() {
         return stringList -> {
